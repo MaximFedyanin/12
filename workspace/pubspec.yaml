@@ -1,0 +1,80 @@
+name: word_bulldog
+description: Personalized English vocabulary learning app with adaptive difficulty
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_riverpod: ^2.4.9
+  riverpod_annotation: ^2.3.3
+
+  # Local Database
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # Navigation
+  go_router: ^13.1.0
+
+  # UI Components
+  google_fonts: ^6.1.0
+  flutter_animate: ^4.3.0
+  lottie: ^3.0.0
+
+  # Network
+  dio: ^5.4.0
+  connectivity_plus: ^5.0.2
+
+  # Semantic Search (on-device ML)
+  tflite_flutter: ^0.10.4
+  sentencepiece: ^0.1.0
+
+  # Utils
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.2
+  intl: ^0.18.1
+  uuid: ^4.3.3
+  logger: ^2.0.2+1
+
+  # Security
+  flutter_secure_storage: ^9.0.0
+
+  # Analytics (optional)
+  firebase_core: ^2.24.2
+  firebase_analytics: ^10.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.8
+  riverpod_generator: ^2.3.9
+  mockito: ^5.4.4
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/bulldog_splash.png
+    - assets/images/bulldog_icon.png
+    - assets/images/bulldog_onboarding.png
+    - assets/lottie/
+    - assets/word_database/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: fonts/Roboto-Bold.ttf
+          weight: 700
