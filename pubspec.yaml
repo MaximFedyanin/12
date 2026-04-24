@@ -33,7 +33,7 @@ dependencies:
 
   # Semantic Search (on-device ML)
   tflite_flutter: ^0.10.4
-  tflite_flutter_helper: ^0.3.1
+#  tflite_flutter_helper: ^0.3.1
 
   # Utils
   shared_preferences: ^2.2.2
