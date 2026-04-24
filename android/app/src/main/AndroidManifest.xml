@@ -39,6 +39,6 @@
         <!-- ЭТА СТРОЧКА КРИТИЧЕСКИ ВАЖНА -->
         <meta-data
             android:name="flutterEmbedding"
-            android:value="2"/>
+            android:value="2" />
     </application>
 </manifest>
