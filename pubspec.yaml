@@ -33,11 +33,13 @@ dependencies:
 
   # Semantic Search (on-device ML)
   tflite_flutter: ^0.10.4
-  sentencepiece: ^0.1.0
+  tflite_flutter_helper: ^0.3.1
 
   # Utils
   shared_preferences: ^2.2.2
   path_provider: ^2.1.2
+  # Для работы с файлами модели
+  path: ^1.8.3
   intl: ^0.18.1
   uuid: ^4.3.3
   logger: ^2.0.2+1
