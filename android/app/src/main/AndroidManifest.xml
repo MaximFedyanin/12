@@ -1,5 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -27,9 +26,8 @@
 
             <!-- Specifies an Android theme to apply to this Activity -->
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -38,6 +36,7 @@
         </activity>
 
         <!-- Don't delete the meta-data below -->
+        <!-- ЭТА СТРОЧКА КРИТИЧЕСКИ ВАЖНА -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
