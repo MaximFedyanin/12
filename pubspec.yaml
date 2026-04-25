@@ -66,9 +66,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/bulldog_splash.png
-    - assets/images/bulldog_icon.png
-    - assets/images/bulldog_onboarding.png
+#    - assets/images/bulldog_splash.png
+#    - assets/images/bulldog_icon.png
+#    - assets/images/bulldog_onboarding.png
     - assets/lottie/
     - assets/word_database/
     - assets/models/embedding/v1/model.tflite
