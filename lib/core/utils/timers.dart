@@ -81,7 +81,8 @@ class NameValidator {
     }
 
     // Allow only letters, spaces, hyphens, and apostrophes
-    final nameRegex = RegExp(r'^[a-zA-Z\s\'\-]+$');
+    // final nameRegex = RegExp(r'^[a-zA-Z\s\'\-]+$');
+    final nameRegex = RegExp(r"^[a-zA-Z\s'-]+$");
     return nameRegex.hasMatch(name);
   }
 
