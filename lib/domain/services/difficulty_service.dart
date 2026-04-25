@@ -98,7 +98,7 @@ class DifficultyService {
 class AdaptiveForgettingCurve {
   final String userId;
   final double baseDecay;
-  final double userMultiplier;
+  double userMultiplier;
 
   AdaptiveForgettingCurve({
     required this.userId,
