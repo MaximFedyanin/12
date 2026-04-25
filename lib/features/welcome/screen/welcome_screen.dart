@@ -73,13 +73,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
     });
   }
 
-  Color _getSubmitColor(int uniqueCorrectCount) {
-    if (uniqueCorrectCount < 20) return AppColors.greenLight;
-    if (uniqueCorrectCount < 50) return AppColors.greenMedium;
-    if (uniqueCorrectCount < 100) return AppColors.greenDark;
-    return AppColors.greenDeep;
-  }
-
   @override
   void dispose() {
     _overlayController.dispose();
