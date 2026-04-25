@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+//import 'package:hive_flutter/hive_flutter.dart';
 import 'core/constants/app_settings.dart';
 import 'core/database/database_helper.dart';
-import 'core/database/models/word.dart';
-import 'core/database/models/user_progress.dart';
+//import 'core/database/models/word.dart';
+//import 'core/database/models/user_progress.dart';
 import 'features/onboarding/screen/onboarding_screen.dart';
 import 'features/welcome/screen/welcome_screen.dart';
 import 'presentation/themes/app_theme.dart';
