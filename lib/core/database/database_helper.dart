@@ -147,7 +147,8 @@ class DatabaseHelper {
 
     final timestamp = cached['timestamp'] as int;
     final now = DateTime.now().millisecondsSinceEpoch;
-    final expirationHours = 24;
+//    final expirationHours = 24;
+    const expirationHours = 24;
 
     if (now - timestamp > expirationHours * 60 * 60 * 1000) {
       cacheBox.delete('query_$query');
