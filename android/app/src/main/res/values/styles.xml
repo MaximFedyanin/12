@@ -9,4 +9,7 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">@drawable/normal_background</item>
     </style>
+
+    <!-- Icon launcher background color -->
+    <color name="ic_launcher_background">#FFFFFF</color>
 </resources>
