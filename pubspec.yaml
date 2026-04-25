@@ -75,7 +75,7 @@ flutter:
     - assets/models/embedding/v1/tokenizer.json
     - assets/models/embedding/v1/metadata.json
 
-  fonts:
+#  fonts:
 #    - family: Roboto
 #      fonts:
 #        - asset: fonts/Roboto-Regular.ttf
