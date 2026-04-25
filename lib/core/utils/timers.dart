@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'dart:async';
 
 class SessionTimer {
   double _elapsed = 0.0;
