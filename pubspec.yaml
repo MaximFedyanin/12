@@ -18,6 +18,8 @@ dependencies:
   # Local Database (Isar)
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
+  hive: ^2.2.3                # ← Добавлено
+  hive_flutter: ^1.1.0        # ← Добавлено
   
   # Navigation
   go_router: ^14.6.0
