@@ -46,7 +46,7 @@ dev_dependencies:
   isar_generator: ^3.1.0+1
 
   analyzer: ^6.7.0
-  source_gen: ^2.0.0
+  source_gen: ^1.2.2
 
   build_runner: ^2.4.14
   riverpod_generator: ^2.6.3
