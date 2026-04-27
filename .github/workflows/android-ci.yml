@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v4
       
@@ -22,7 +21,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          flutter-version: '3.27.0'  # ✅ Dart 3.6.0
           channel: 'stable'
           cache: true
 
@@ -62,16 +61,14 @@ jobs:
   performance_test:
     runs-on: ubuntu-latest
     needs: build
-    
     steps:
       - uses: actions/checkout@v4
       
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          flutter-version: '3.27.0'  # ✅ Совместимо
       
       - name: Run performance tests
         run: |
           flutter test --coverage
-          # Add integration tests for POCO F3 specific performance metrics
