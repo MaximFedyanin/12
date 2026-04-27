@@ -16,8 +16,10 @@ dependencies:
   riverpod_annotation: ^2.6.1
   
   # Local Database (Isar)
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
+#  isar: ^3.1.0+1
+#  isar_flutter_libs: ^3.1.0+1
+  isar: ^4.0.0-dev.13
+  isar_flutter_libs: ^4.0.0-dev.13
   
   # Navigation
   go_router: ^14.6.0
@@ -43,11 +45,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  isar_generator: ^3.1.0+1
-
-  analyzer: ^6.7.0
-  source_gen: ^1.2.2
-
+#  isar_generator: ^3.1.0+1
+  isar_generator: ^4.0.0-dev.13
   build_runner: ^2.4.14
   riverpod_generator: ^2.6.3
   mockito: ^5.4.5
