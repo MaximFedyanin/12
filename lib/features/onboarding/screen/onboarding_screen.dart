@@ -91,7 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                     width: 180,
                     height: 180,
                     decoration: BoxDecoration(
-                      color: AppColors.greenLight.withValues(0.3),
+                      color: AppColors.greenLight.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(90),
                     ),
                     child: const Icon(
