@@ -152,7 +152,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
               child: GestureDetector(
                 onTap: _hideOverlay,
                 child: Container(
-                  color: Colors.white.withOpacity(0.3),
+                  color: Colors.white.withValues(0.3),
                   child: Center(
                     child: FadeTransition(
                       opacity: _fadeAnimation,
@@ -162,11 +162,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                           width: 200,
                           height: 200,
                           decoration: BoxDecoration(
-                            color: AppColors.greenLight.withOpacity(0.3),
+                            color: AppColors.greenLight.withValues(0.3),
                             borderRadius: BorderRadius.circular(100),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
+                                color: Colors.black.withValues(0.2),
                                 blurRadius: 20,
                                 spreadRadius: 5,
                               ),
@@ -193,9 +193,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(0.3)),
       ),
       child: Text(
         text,
