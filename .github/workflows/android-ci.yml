@@ -1,5 +1,4 @@
 name: Android CI
-
 on:
   push:
     branches: [ main, develop ]
@@ -18,57 +17,51 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.0'  # ✅ Dart 3.6.0
+          flutter-version: '3.27.0'
           channel: 'stable'
           cache: true
 
-      - name: Clean Flutter cache
-        run: flutter clean
-      
-      - name: Install dependencies
-        run: flutter pub get
-      
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
+
+      - name: Clean & Get dependencies
+        run: |
+          flutter clean
+          flutter pub get
+
+      - name: Patch isar_flutter_libs for AGP 8
+        run: |
+          ISAR_PATH=$(find $FLUTTER_ROOT/.pub-cache/hosted/pub.dev -name "isar_flutter_libs-*" -type d | head -n 1)
+          BUILD_GRADLE="$ISAR_PATH/android/build.gradle"
+          sed -i '/apply plugin: "com.android.library"/a android {\n    namespace "dev.isar.isar_flutter_libs"\n}' "$BUILD_GRADLE"
+
       - name: Run build_runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
-      
+
       - name: Analyze
         run: flutter analyze
-      
+
       - name: Run tests
         run: flutter test
-      
-      - name: Build APK for POCO F3
-        run: flutter build apk --release --target-platform android-arm64
-      
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: build/app/outputs/flutter-apk/app-release.apk
-      
-      - name: Build App Bundle
-        run: flutter build appbundle --release
-      
-      - name: Upload Bundle artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-bundle
-          path: build/app/outputs/bundle/release/app-release.aab
 
-  performance_test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.27.0'  # ✅ Совместимо
-      
-      - name: Run performance tests
+      - name: Build APK & AppBundle
         run: |
-          flutter test --coverage
+          flutter build apk --release --target-platform android-arm64
+          flutter build appbundle --release
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-builds
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
