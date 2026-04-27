@@ -4,38 +4,37 @@ version: 1.0.0+1
 publish_to: 'none'
 
 environment:
+  # Dart 3.5 достаточно для Flutter 3.27
   sdk: ">=3.5.0 <4.0.0"
   flutter: ">=3.24.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  
-  # State Management (единая версия 3.0.0)
-  flutter_riverpod: ^3.0.0
-  riverpod_annotation: ^3.0.0
-  
-  # Local Database (выберите ОДНУ)
+
+  # State Management (Используем стабильную ветку 2.x для совместимости с Dart 3.6)
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # Local Database (Isar)
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
-  # hive: ^2.2.3
-  # hive_flutter: ^1.1.0
-  
+
   # Navigation
   go_router: ^14.2.0
-  
+
   # UI Components
   google_fonts: ^6.2.1
   flutter_animate: ^4.5.0
   lottie: ^3.1.2
-  
+
   # Network
   dio: ^5.5.0
   connectivity_plus: ^6.0.3
-  
-  # Semantic Search (on-device ML)
+
+  # Semantic Search
   tflite_flutter: ^0.11.0
-  
+
   # Utils
   shared_preferences: ^2.3.2
   path_provider: ^2.1.4
@@ -43,11 +42,11 @@ dependencies:
   intl: ^0.19.0
   uuid: ^4.4.2
   logger: ^2.4.0
-  
+
   # Security
   flutter_secure_storage: ^9.2.2
-  
-  # Analytics (optional)
+
+  # Analytics
   firebase_core: ^3.3.0
   firebase_analytics: ^11.2.1
 
@@ -55,16 +54,18 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  
+  # Code Generation (Версии 2.x совместимы с Dart 3.6)
   isar_generator: ^3.1.0+1
   build_runner: ^2.4.11
-  riverpod_generator: ^3.0.0
+  riverpod_generator: ^2.4.0
   mockito: ^5.4.4
+  
   integration_test:
     sdk: flutter
 
 flutter:
   uses-material-design: true
-  
   assets:
     - assets/images/bulldog_splash.png
     - assets/images/bulldog_icon.png
@@ -74,7 +75,8 @@ flutter:
     - assets/models/embedding/v1/model.tflite
     - assets/models/embedding/v1/tokenizer.json
     - assets/models/embedding/v1/metadata.json
-  
+
+  # Исправлена структура fonts (было дублирование ключа fonts)
   fonts:
     - family: Roboto
       fonts:
