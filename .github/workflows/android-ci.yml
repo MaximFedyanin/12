@@ -40,9 +40,18 @@ jobs:
 
       - name: Patch isar_flutter_libs for AGP 8
         run: |
-          ISAR_PATH=$(find $FLUTTER_ROOT/.pub-cache/hosted/pub.dev -name "isar_flutter_libs-*" -type d | head -n 1)
+          echo "🔧 Patching isar_flutter_libs for AGP 8..."
+          ISAR_PATH=$(find "$PUB_CACHE/hosted/pub.dev" -maxdepth 1 -name "isar_flutter_libs-*" -type d | head -n 1)
+          if [ -z "$ISAR_PATH" ]; then echo "❌ isar_flutter_libs not found!"; exit 1; fi
+          
           BUILD_GRADLE="$ISAR_PATH/android/build.gradle"
-          sed -i '/apply plugin: "com.android.library"/a android {\n    namespace "dev.isar.isar_flutter_libs"\n}' "$BUILD_GRADLE"
+          if ! grep -q "namespace" "$BUILD_GRADLE"; then
+            # Добавляем namespace внутрь android { } блока
+            sed -i '/^android {/a\    namespace "dev.isar.isar_flutter_libs"' "$BUILD_GRADLE"
+            echo "✅ Patched namespace in isar_flutter_libs"
+          else
+            echo "✅ namespace already present"
+          fi
 
       - name: Run build_runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
