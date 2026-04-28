@@ -38,3 +38,9 @@
 
 # Keep Flutter plugin bindings
 -keep class io.flutter.plugin.** { *; }
+
+# === AndroidX Window Manager (Flutter 3.27+ / Foldables) ===
+-keep class androidx.window.** { *; }
+-dontwarn androidx.window.**
+-keep class androidx.window.extensions.** { *; }
+-keep class androidx.window.sidecar.** { *; }
