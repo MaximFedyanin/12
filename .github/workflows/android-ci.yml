@@ -1,5 +1,4 @@
 name: Android CI
-
 on:
   push:
     branches: [ main, develop ]
@@ -9,34 +8,81 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
+      
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
+          distribution: 'temurin'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'
+          channel: 'stable'
+          cache: true
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
 
-      - name: Build with Gradle
-        run: ./gradlew assembleDebug --no-daemon
+      - name: Clean & Get dependencies
+        run: |
+          flutter clean
+          flutter pub get
+
+      - name: Patch isar_flutter_libs for AGP 8
+        run: |
+          echo "🔧 Patching isar_flutter_libs for AGP 8..."
+          ISAR_PATH=$(find "$PUB_CACHE/hosted/pub.dev" -maxdepth 1 -name "isar_flutter_libs-*" -type d | head -n 1)
+          if [ -z "$ISAR_PATH" ]; then echo "❌ isar_flutter_libs not found!"; exit 1; fi
+          
+          BUILD_GRADLE="$ISAR_PATH/android/build.gradle"
+          if ! grep -q "namespace" "$BUILD_GRADLE"; then
+            # Добавляем namespace внутрь android { } блока
+            sed -i '/^android {/a\    namespace "dev.isar.isar_flutter_libs"' "$BUILD_GRADLE"
+            echo "✅ Patched namespace in isar_flutter_libs"
+          else
+            echo "✅ namespace already present"
+          fi
+      - name: Setup Android SDK 35 & Build Tools
+        uses: android-actions/setup-android@v3
+        with:
+          packages: 'platforms;android-35 build-tools;35.0.0'
+          accept-licenses: true
+
+      - name: Configure Gradle Memory
+        run: |
+          echo "org.gradle.jvmargs=-Xmx4g -XX:+UseParallelGC -Dfile.encoding=UTF-8" >> gradle.properties
+          echo "org.gradle.parallel=true" >> gradle.properties
+          echo "org.gradle.caching=true" >> gradle.properties
+        working-directory: android
+
+      - name: Run build_runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Analyze
+        run: flutter analyze
 
       - name: Run tests
-        run: ./gradlew testDebugUnitTest --no-daemon
+        run: flutter test
 
-      - name: Lint check
-        run: ./gradlew lintDebug --no-daemon
+      - name: Build APK & AppBundle
+        run: |
+          flutter build apk --release --target-platform android-arm64
+          flutter build appbundle --release
 
-      - name: Upload APK
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
-        if: success()
         with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: android-builds
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab

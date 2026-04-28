@@ -1,0 +1,55 @@
+name: Flutter Build & Release APK
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'  # ✅ Dart 3.6.0
+          channel: 'stable'
+
+      - name: Clean build artifacts
+        run: flutter clean
+
+      - name: Get dependencies
+        run: flutter pub get
+
+        # 🔧 НОВЫЙ ШАГ: Патч isar_flutter_libs для AGP 8
+      - name: Patch isar_flutter_libs for AGP 8 compatibility
+        run: |
+          echo "🔧 Patching isar_flutter_libs build.gradle for AGP 8..."
+          ISAR_PATH=$(find "$PUB_CACHE/hosted/pub.dev" -maxdepth 1 -name "isar_flutter_libs-*" -type d | head -n 1)
+          if [ -z "$ISAR_PATH" ]; then echo "❌ isar_flutter_libs not found!"; exit 1; fi
+          BUILD_GRADLE="$ISAR_PATH/android/build.gradle"
+          if ! grep -q "namespace" "$BUILD_GRADLE"; then
+            sed -i '/^android {/a\    namespace "dev.isar.isar_flutter_libs"' "$BUILD_GRADLE"
+            echo "✅ Patched namespace in isar_flutter_libs"
+          else
+            echo "✅ namespace already present"
+          fi
+
+      - name: Setup Android SDK 35 & Build Tools
+        uses: android-actions/setup-android@v3
+        with:
+          packages: 'platforms;android-35 build-tools;35.0.0'
+          accept-licenses: true
+
+      - name: Build release APK
+        run: flutter build apk --release --target-platform android-arm64
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk

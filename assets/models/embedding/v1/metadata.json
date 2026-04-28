@@ -1,0 +1,1 @@
+﻿{ "name": "all-MiniLM-L6-v2-int8", "version": "v1", "input_dim": 384, "max_seq_length": 128, "vocabulary_size": 30522, "languages": ["en"], "quantization": "int8", "file_size_mb": 40 }

@@ -1,0 +1,77 @@
+name: word_bulldog
+description: Personalized English vocabulary learning app with adaptive difficulty
+version: 1.0.0+1
+publish_to: 'none'
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"  # ✅ Строго под Flutter 3.27+
+  flutter: ">=3.27.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+  
+  # Local Database (Isar)
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  hive: ^2.2.3                # ← Добавлено
+  hive_flutter: ^1.1.0        # ← Добавлено
+  
+  # Navigation
+  go_router: ^14.6.0
+  
+  # UI & Utils
+  google_fonts: ^6.2.1
+  flutter_animate: ^4.5.2
+  lottie: ^3.2.0
+  dio: ^5.7.0
+  connectivity_plus: ^6.1.1
+  tflite_flutter: ^0.11.0
+  shared_preferences: ^2.5.2
+  path_provider: ^2.1.5
+  path: ^1.9.0
+  intl: ^0.19.0
+  uuid: ^4.5.1
+  logger: ^2.5.0
+  flutter_secure_storage: ^9.2.4
+  firebase_core: ^3.9.0
+  firebase_analytics: ^11.3.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.7
+  riverpod_generator: ^2.4.0
+  mockito: ^5.4.4
+  analyzer: ^5.13.0
+  dart_style: ^2.3.2
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/bulldog_splash.png
+    - assets/images/bulldog_icon.png
+    - assets/images/bulldog_onboarding.png
+    - assets/lottie/
+    - assets/word_database/
+    - assets/models/embedding/v1/model.tflite
+    - assets/models/embedding/v1/tokenizer.json
+    - assets/models/embedding/v1/metadata.json
+  
+  # ✅ Исправленная структура шрифтов
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: fonts/Roboto-Bold.ttf
+          weight: 700
